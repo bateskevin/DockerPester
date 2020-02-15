@@ -21,7 +21,7 @@ Function DockerPesterRun {
 
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
-        docker cp $InputFolder $CPString
+        winpty docker cp $InputFolder $CPString
         
         winpty docker.exe exec $ContainerName pwsh -command "Install-Module Pester -Force"
         winpty docker.exe exec $ContainerName pwsh -command "ipmo pester"

@@ -1,4 +1,4 @@
-#Generated at 02/15/2020 23:47:10 by Kevin Bates
+#Generated at 02/16/2020 00:07:57 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -22,7 +22,7 @@ Function DockerPesterRun {
 
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
-        docker cp $InputFolder $CPString
+        winpty docker cp $InputFolder $CPString
         
         winpty docker.exe exec $ContainerName pwsh -command "Install-Module Pester -Force"
         winpty docker.exe exec $ContainerName pwsh -command "ipmo pester"
