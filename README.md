@@ -12,7 +12,7 @@ This is basically just to play around with, but it could get to a cool state :)
 Up until now I tested it with the following Docker Images:
 
 | OS        | Tag           | Pull  | Comment     |
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------:| -----:| -----:|
 | Alpine 3.8      | 7.0.0-rc.2-alpine-3.8 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8 | Works Fully |
 | Alpine 3.10      | 7.0.0-rc.2-alpine-3.10 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.10 | Works Fully |
 | CentOS 8    | 7.0.0-rc.2-centos-8 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-centos-8 | PassThru Object not working |
