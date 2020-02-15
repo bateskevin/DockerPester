@@ -6,19 +6,73 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'windows-2019'
+jobs:
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - job: Test_windows2019
+    pool: 
+      vmImage: windows-2019
+    steps: 
+      - task: PowerShell@2
+        inputs:
+          targetType: 'inline'
+          script: |
+            Install-Module DockerMsftProvider -Force
+            Install-Package Docker -ProviderName DockerMsftProvider -Force
+            (Install-WindowsFeature Containers).RestartNeeded
+            Start-Service Docker
+      - powershell: "./CI/Tests.AzureDevops.ps1"
+        displayName: "Running Tests Windows 2019"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+        targetType: 'inline'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      Install-Module DockerMsftProvider -Force
-      Install-Package Docker -ProviderName DockerMsftProvider -Force
-      (Install-WindowsFeature Containers).RestartNeeded
-      Start-Service Docker
-      docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-nanoserver-1803
+  - job: Test_windows2016
+    pool: 
+      vmImage: vs2017-win2016
+    steps:
+      - task: PowerShell@2
+        inputs:
+          targetType: 'inline'
+          script: |
+            Install-Module DockerMsftProvider -Force
+            Install-Package Docker -ProviderName DockerMsftProvider -Force
+            (Install-WindowsFeature Containers).RestartNeeded
+            Start-Service Docker
+      - powershell: "./CI/Tests.AzureDevops.ps1"
+        displayName: "Running Tests Windows 2016"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+        
+
+  - job: Test_Ubuntu
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.ps1"
+        displayName: "Running Tests Ubuntu"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: Test_macos
+    pool: 
+      vmImage: macOS-10.14
+    steps: 
+      - script: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      - script: brew install caskroom/cask/brew-cask
+      - script: brew cask install docker-toolbox
+      - script: "pwsh -c ./CI/Tests.AzureDevops.ps1"
+        displayName: "Running Tests MacOS"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
