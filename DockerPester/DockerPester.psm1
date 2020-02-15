@@ -1,4 +1,4 @@
-#Generated at 02/15/2020 23:16:37 by Kevin Bates
+#Generated at 02/15/2020 23:24:18 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -128,14 +128,9 @@ Function Invoke-DockerPester {
         $Image,
         $InputFolder,
         $PathOnContainer = "/var",
-        $PathToTests 
+        $PathToTests,
+        $Executor
     )
-
-    If($IsWindows){
-        $Executor = "WIN"
-    }else{
-        $Executor = "LNX"
-    }
 
     $Location = Get-Location
 

@@ -4,14 +4,9 @@ Function Invoke-DockerPester {
         $Image,
         $InputFolder,
         $PathOnContainer = "/var",
-        $PathToTests 
+        $PathToTests,
+        $Executor
     )
-
-    If($IsWindows){
-        $Executor = "WIN"
-    }else{
-        $Executor = "LNX"
-    }
 
     $Location = Get-Location
 
