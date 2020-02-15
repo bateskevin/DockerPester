@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-2019'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Install-Module DockerMsftProvider -Force
+      Install-Package Docker -ProviderName DockerMsftProvider -Force
+      (Install-WindowsFeature Containers).RestartNeeded
+      docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8
