@@ -11,6 +11,7 @@ install:
     Install-Module -Name Pester -Force
 
     Install-Module DockerMsftProvider -Force
+    
     Install-Package Docker -ProviderName DockerMsftProvider -Force
 
     Install-WindowsFeature Containers 
