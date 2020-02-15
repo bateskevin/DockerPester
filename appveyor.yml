@@ -40,7 +40,10 @@ install:
     # Start the Docker service.
     Start-Service docker
 
-- ps: >-    
+    Get-Service Docker
+
+- ps: >-   
+    Powershell
     Docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8
     
 build: off
