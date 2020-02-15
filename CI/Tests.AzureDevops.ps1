@@ -1,6 +1,6 @@
 $PSVersionTable
 install-module pester -Force
-$TestsFolder = join-path -path "$($env:BUILD_SOURCESDIRECTORY)" -childpath "Tests/BaseTest"
+$TestsFolder = join-path -path "$($env:BUILD_SOURCESDIRECTORY)" -childpath "Tests/BaseTests"
 write-host "sourcedirectory = $($env:BUILD_SOURCESDIRECTORY)"
 gci $env:BUILD_SOURCESDIRECTORY
 set-location $TestsFolder
