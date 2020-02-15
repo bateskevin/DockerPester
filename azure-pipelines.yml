@@ -48,12 +48,25 @@ jobs:
           testRunner: NUnit
         
 
-  - job: alpine-3.8
+  - job: alpine-3_8
     pool: 
       vmImage: ubuntu-latest
     steps: 
       - script: sudo apt-get remove docker docker-engine docker.io containerd runc
       - script: "pwsh -c ./CI/Tests.AzureDevops.alpine-3.8.ps1"
+        displayName: "Running Tests Ubuntu"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: alpine-3_10
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.alpine-3.10.ps1"
         displayName: "Running Tests Ubuntu"
       - task: PublishTestResults@2
         condition: succeededOrFailed()
