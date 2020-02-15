@@ -23,13 +23,13 @@ Function DockerPesterRun {
 
         docker cp $InputFolder $CPString
         
-        docker exec $ContainerName pwsh -command "Install-Module Pester -Force"
-        docker exec $ContainerName pwsh -command "ipmo pester"
-        docker exec -it $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
+        winpty docker.exe exec $ContainerName pwsh -command "Install-Module Pester -Force"
+        winpty docker.exe exec $ContainerName pwsh -command "ipmo pester"
+        winpty docker.exe exec -it $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
         
         $CPString2 = "$($ContainerName):$($PathOnContainer)/Output.json"
         $CPString3 = (Join-Path $Location Output.json)
-        docker cp $CPString2 $CPString3 
+        winpty docker.exe cp $CPString2 $CPString3 
         #docker exec -it $ContainerName pwsh -command "Invoke-Pester $PathToTests -PassThru -Show None"
         #docker exec -it $ContainerName pwsh -command "$res | convertto-json"
     
