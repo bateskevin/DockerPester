@@ -7,6 +7,14 @@ Run Pester Tests in containers locally and get PassThru Object back.
 
 This is basically just to play around with, but it could get to a cool state :) 
 
+# Azure Pipelines
+
+## Module Functionality
+
+| OS        | Tag           |
+| ------------- |:-------------:|
+| Base Functionalty     | [![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=Test_windows2019) |
+
 # Tested Docker Images
 
 Up until now I tested it with the following Docker Images:
