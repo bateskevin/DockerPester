@@ -48,9 +48,9 @@ jobs:
           testRunner: NUnit
         
 
-  - job: Test_Ubuntu
+  - job: alpine-3.8
     pool: 
-      vmImage: alpine-3.8
+      vmImage: ubuntu-latest
     steps: 
       - script: sudo apt-get remove docker docker-engine docker.io containerd runc
       - script: "pwsh -c ./CI/Tests.AzureDevops.alpine-3.8.ps1"
