@@ -10,7 +10,7 @@ Function Invoke-DockerPester {
 
     $Location = Get-Location
 
-    DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer $PathToTests -Executor $Executor
+    DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer -PathToTests $PathToTests -Executor $Executor
 
     $PassThruObject = Get-DockerPesterPassthruPbject -Location $Location
 

@@ -1,4 +1,4 @@
-#Generated at 02/15/2020 23:42:14 by Kevin Bates
+#Generated at 02/15/2020 23:47:10 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -135,7 +135,7 @@ Function Invoke-DockerPester {
 
     $Location = Get-Location
 
-    DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer $PathToTests -Executor $Executor
+    DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer -PathToTests $PathToTests -Executor $Executor
 
     $PassThruObject = Get-DockerPesterPassthruPbject -Location $Location
 
