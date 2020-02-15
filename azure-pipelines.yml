@@ -73,18 +73,3 @@ jobs:
         inputs:
           testRunner: NUnit
           testResultsFiles: '**/TestsResults.xml'
-
-  - job: Test_macos
-    pool: 
-      vmImage: macOS-10.14
-    steps: 
-      - script: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-      - script: brew install homebrew/cask-cask/brew-cask
-      - script: brew cask install docker-toolbox
-      - script: "pwsh -c ./CI/Tests.AzureDevops.LNX.ps1"
-        displayName: "Running Tests MacOS"
-      - task: PublishTestResults@2
-        condition: succeededOrFailed()
-        inputs:
-          testRunner: NUnit
-          testResultsFiles: '**/TestsResults.xml'
