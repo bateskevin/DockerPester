@@ -1,5 +1,5 @@
 # DockerPester
-Run Pester Tests in Linux containers locally and get PassThru Object back.
+Run Pester Tests in containers locally and get PassThru Object back.
 
 ![Docker](IMG/Docker.png)                        ![Powershell](IMG/powershell.png)
 

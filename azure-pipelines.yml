@@ -21,4 +21,4 @@ steps:
       Install-Package Docker -ProviderName DockerMsftProvider -Force
       (Install-WindowsFeature Containers).RestartNeeded
       Start-Service Docker
-      docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8
+      docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-nanoserver-1803
