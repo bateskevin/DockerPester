@@ -7,6 +7,14 @@ Run Pester Tests in Linux containers locally and get PassThru Object back.
 
 This is basically just to play around with, but it could get to a cool state :) 
 
+# Tested Docker Images
+
+Up until now I tested it with the following Docker Images:
+
+| OS        | Tag           | Pull  |
+| ------------- |:-------------:| -----:|
+| Alpine 3.8      | 7.0.0-rc.2-alpine-3.8 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8 |
+
  # How to use it
 
  ## Prereq
