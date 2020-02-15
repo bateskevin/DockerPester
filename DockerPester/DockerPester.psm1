@@ -1,4 +1,4 @@
-#Generated at 02/16/2020 00:30:01 by Kevin Bates
+#Generated at 02/16/2020 00:35:01 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -18,16 +18,16 @@ Function DockerPesterRun {
             $TestPath = "$(Join-Path $(join-path $PathOnContainer (split-path $InputFolder -Leaf)) $PathToTests)"
         }
 
-        winpty docker.exe run --tty --name $ContainerName $Image
+        winpty docker.exe run -T --name $ContainerName $Image
 
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
         winpty docker cp $InputFolder $CPString
         
-        winpty docker.exe exec --tty $ContainerName pwsh -command "Install-Module Pester -Force"
-        winpty docker.exe exec --tty $ContainerName pwsh -command "ipmo pester"
-        winpty docker.exe exec --tty $ContainerName pwsh -command "If(!(Test-Path $PathOnContainer)){New-Item $PathOnContainer -Recurse}"
-        winpty docker.exe exec --tty $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
+        winpty docker.exe exec -T $ContainerName pwsh -command "Install-Module Pester -Force"
+        winpty docker.exe exec -T $ContainerName pwsh -command "ipmo pester"
+        winpty docker.exe exec -T $ContainerName pwsh -command "If(!(Test-Path $PathOnContainer)){New-Item $PathOnContainer -Recurse}"
+        winpty docker.exe exec -T $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
         
         $CPString2 = "$($ContainerName):$($PathOnContainer)/Output.json"
         $CPString3 = (Join-Path $Location Output.json)
@@ -35,7 +35,7 @@ Function DockerPesterRun {
         #docker exec -it $ContainerName pwsh -command "Invoke-Pester $PathToTests -PassThru -Show None"
         #docker exec -it $ContainerName pwsh -command "$res | convertto-json"
     
-        winpty docker.exe --tty rm --force $ContainerName
+        winpty docker.exe  rm --force $ContainerName
     }else{
         $Location = Get-Location
 
