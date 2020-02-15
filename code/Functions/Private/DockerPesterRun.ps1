@@ -10,7 +10,9 @@ Function DockerPesterRun {
     $Location = Get-Location
 
     if(!($PathToTests)){
-        $PathToTests = "$(Join-Path $(join-path $PathOnContainer (split-path $InputFolder -Leaf)) "Tests")"
+        $TestPath = "$(Join-Path $(join-path $PathOnContainer (split-path $InputFolder -Leaf)) "Tests")"
+    }else{
+        $TestPath = "$(Join-Path $(join-path $PathOnContainer (split-path $InputFolder -Leaf)) $PathToTests)"
     }
 
     docker run -it -d -t --name $ContainerName $Image
@@ -21,8 +23,8 @@ Function DockerPesterRun {
     
     docker exec $ContainerName pwsh -command "Install-Module Pester -Force"
     docker exec $ContainerName pwsh -command "ipmo pester"
-    docker exec $ContainerName pwsh -command "cd $PathToTests"
-    docker exec -it $ContainerName pwsh -command "Invoke-Pester $PathToTests -PassThru | Convertto-JSON | Out-File /var/Output.json"
+    docker exec $ContainerName pwsh -command "cd $TestPath"
+    docker exec -it $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File /var/Output.json"
     
     $CPString2 = "$($ContainerName):/var/Output.json"
     $CPString3 = (Join-Path $Location Output.json)

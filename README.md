@@ -42,15 +42,17 @@ $Param = @{
 Invoke-DockerPester @Param
   ```
 
-  ### ContainerName
+  ## Params
+
+  ### ContainerName 
 
 You can choose the name of your container freely. If entered nothing it will be Called "DockerPester"
 
-  ### Image
+  ### Image - REQUIRED
 
 Add one of the Images you pulled here.
 
-  ### InputFolderPath
+  ### InputFolder - REQUIRED
 
 Point this to a Module you want to run your Tests for.
 
@@ -58,7 +60,7 @@ Point this to a Module you want to run your Tests for.
 
 This will be /var if entered nothing. This is the Path used in the Container.
 
-  ### PathToTests
+  ### PathToTests - Partially REQUIRED
 
 Add the Path to the Tests in your Module folder here. Not the whole Path, but only the Path in your Folder.
 
