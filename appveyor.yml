@@ -14,7 +14,11 @@ install:
 
     Install-Package Docker -ProviderName DockerMsftProvider -Force
 
-    (Install-WindowsFeature Containers).RestartNeeded
+    restart-computer -Force
+
+    Install-WindowsFeature Containers
+
+    restart-computer -Force
 
     Docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8
     
