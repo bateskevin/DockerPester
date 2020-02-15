@@ -10,9 +10,7 @@ install:
     
     Install-Module -Name Pester -Force
 
-    Invoke-WebRequest -UseBasicParsing -OutFile c:\docker-19.03.5.zip https://download.docker.com/components/engine/windows-server/19.03/docker-19.03.5.zip
-
-    cd c:
+    Invoke-WebRequest -UseBasicParsing -OutFile C:\projects\dockerpester\docker-19.03.5.zip https://download.docker.com/components/engine/windows-server/19.03/docker-19.03.5.zip
 
     Expand-Archive docker-19.03.5.zip -DestinationPath $Env:ProgramFiles -Force
 
