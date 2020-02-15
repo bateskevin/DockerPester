@@ -28,9 +28,9 @@ jobs:
           testRunner: NUnit
           testResultsFiles: '**/TestsResults.xml'
 
-  - job: Test_windows2016
+  - job: Test_windows2019_Images_Tests
     pool: 
-      vmImage: vs2017-win2016
+      vmImage: windows-2019
     steps:
       - task: PowerShell@2
         inputs:
