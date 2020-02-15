@@ -23,14 +23,14 @@ Function DockerPesterRun {
 
         winpty docker cp $InputFolder $CPString
         
-        winpty docker.exe exec $ContainerName pwsh -command "Install-Module Pester -Force"
-        winpty docker.exe exec $ContainerName pwsh -command "ipmo pester"
-        winpty docker.exe exec $ContainerName pwsh -command "If(!(Test-Path $PathOnContainer)){New-Item $PathOnContainer -Recurse}"
-        winpty docker.exe exec $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
+        docker.exe exec $ContainerName pwsh -command "Install-Module Pester -Force"
+        docker.exe exec $ContainerName pwsh -command "ipmo pester"
+        docker.exe exec $ContainerName pwsh -command "If(!(Test-Path $PathOnContainer)){New-Item $PathOnContainer -Recurse}"
+        docker.exe exec $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
         
         $CPString2 = "$($ContainerName):$($PathOnContainer)/Output.json"
         $CPString3 = (Join-Path $Location Output.json)
-        winpty docker.exe cp $CPString2 $CPString3 
+        docker.exe cp $CPString2 $CPString3 
         #docker exec -it $ContainerName pwsh -command "Invoke-Pester $PathToTests -PassThru -Show None"
         #docker exec -it $ContainerName pwsh -command "$res | convertto-json"
     
