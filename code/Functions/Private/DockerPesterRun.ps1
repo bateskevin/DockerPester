@@ -17,7 +17,7 @@ Function DockerPesterRun {
             $TestPath = "$(Join-Path $(join-path $PathOnContainer (split-path $InputFolder -Leaf)) $PathToTests)"
         }
 
-        winpty docker.exe run -d -t --name $ContainerName $Image
+        winpty docker.exe run -t --name $ContainerName $Image
 
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
