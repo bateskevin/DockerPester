@@ -40,7 +40,7 @@ install:
     # Start the Docker service.
     Start-Service docker
 
-    Get-Service Docker
+    Get-Service docker
 
 - ps: >-   
     Powershell
