@@ -48,7 +48,7 @@ jobs:
           testRunner: NUnit
         
 
-  - job: alpine-3_8
+  - job: alpine_3_8
     pool: 
       vmImage: ubuntu-latest
     steps: 
@@ -61,7 +61,7 @@ jobs:
           testRunner: NUnit
           testResultsFiles: '**/TestsResults.xml'
 
-  - job: alpine-3_10
+  - job: alpine_3_10
     pool: 
       vmImage: ubuntu-latest
     steps: 
