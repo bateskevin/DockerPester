@@ -10,9 +10,9 @@ install:
     
     Install-Module -Name Pester -Force
 
-    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
-    choco install docker-for-windows --version=17.07.0.13059-edge --pre 
+    Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+    
+    Install-Package -Name docker -ProviderName DockerMsftProvider
 
     Docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8
     
