@@ -17,7 +17,7 @@ Function DockerPesterRun {
             $TestPath = "$(Join-Path $(join-path $PathOnContainer (split-path $InputFolder -Leaf)) $PathToTests)"
         }
 
-        winpty docker.exe run -it -d -t --name $ContainerName $Image
+        winpty docker.exe run -d -t --name $ContainerName $Image
 
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
@@ -25,7 +25,7 @@ Function DockerPesterRun {
         
         winpty docker.exe exec $ContainerName pwsh -command "Install-Module Pester -Force"
         winpty docker.exe exec $ContainerName pwsh -command "ipmo pester"
-        winpty docker.exe exec -it $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
+        winpty docker.exe exec $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
         
         $CPString2 = "$($ContainerName):$($PathOnContainer)/Output.json"
         $CPString3 = (Join-Path $Location Output.json)
@@ -43,7 +43,7 @@ Function DockerPesterRun {
             $TestPath = "$(Join-Path $(join-path $PathOnContainer (split-path $InputFolder -Leaf)) $PathToTests)"
         }
 
-        docker run -it -d -t --name $ContainerName $Image
+        docker run -d -t --name $ContainerName $Image
 
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
@@ -51,7 +51,7 @@ Function DockerPesterRun {
         
         docker exec $ContainerName pwsh -command "Install-Module Pester -Force"
         docker exec $ContainerName pwsh -command "ipmo pester"
-        docker exec -it $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
+        docker exec $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
         
         $CPString2 = "$($ContainerName):$($PathOnContainer)/Output.json"
         $CPString3 = (Join-Path $Location Output.json)
