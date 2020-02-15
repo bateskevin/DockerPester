@@ -1,4 +1,4 @@
-#Generated at 02/15/2020 23:35:29 by Kevin Bates
+#Generated at 02/15/2020 23:42:14 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -26,6 +26,7 @@ Function DockerPesterRun {
         
         winpty docker.exe exec $ContainerName pwsh -command "Install-Module Pester -Force"
         winpty docker.exe exec $ContainerName pwsh -command "ipmo pester"
+        winpty docker.exe exec $ContainerName pwsh -command "If(!(Test-Path $PathOnContainer)){New-Item $PathOnContainer -Recurse}"
         winpty docker.exe exec $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
         
         $CPString2 = "$($ContainerName):$($PathOnContainer)/Output.json"
