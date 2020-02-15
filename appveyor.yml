@@ -16,7 +16,7 @@ install:
 
     Remove-Item -Force docker-19.03.5.zip
 
-    $null = Install-WindowsFeature containers
+    Install-WindowsFeature Containers
 
     $env:path += ";$env:ProgramFiles\docker"
 
