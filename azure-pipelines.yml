@@ -50,10 +50,10 @@ jobs:
 
   - job: Test_Ubuntu
     pool: 
-      vmImage: ubuntu-latest
+      vmImage: alpine-3.8
     steps: 
       - script: sudo apt-get remove docker docker-engine docker.io containerd runc
-      - script: "pwsh -c ./CI/Tests.AzureDevops.LNX.ps1"
+      - script: "pwsh -c ./CI/Tests.AzureDevops.alpine-3.8.ps1"
         displayName: "Running Tests Ubuntu"
       - task: PublishTestResults@2
         condition: succeededOrFailed()
