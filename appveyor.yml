@@ -16,22 +16,18 @@ install:
 
 reboot:
 - ps: >-
-
     restart-computer -Force
 
 installcontainers:
 - ps: >-
-
     Install-WindowsFeature Containers
 
 reboot2:
 - ps: >-
-
     restart-computer -Force
 
 PullImage:
 - ps: >-
-
     Docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8
     
 build: off
