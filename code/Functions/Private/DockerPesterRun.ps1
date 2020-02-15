@@ -23,7 +23,6 @@ Function DockerPesterRun {
     
     docker exec $ContainerName pwsh -command "Install-Module Pester -Force"
     docker exec $ContainerName pwsh -command "ipmo pester"
-    docker exec $ContainerName pwsh -command "cd $TestPath"
     docker exec -it $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
     
     $CPString2 = "$($ContainerName):$($PathOnContainer)/Output.json"
