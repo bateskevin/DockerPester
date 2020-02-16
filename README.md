@@ -36,6 +36,12 @@ Up until now I tested it with the following Docker Images:
  
  [Install Docker](https://docs.docker.com/install/)
 
+ You can install it using Chocolatey with this Script:
+
+ [Install Docker with Chocolatey](Examples/Install_Docker_win.ps1)
+
+ ! Installs Chocolatey and Docker. If you already have Chocolatey installed just run the second line.
+
  ### Pull Powershell Docker Images
 
  You can find all the Images with Powershell on them, provided by Microsoft, here: 
