@@ -5,7 +5,8 @@ Function DockerPesterRun {
         $InputFolder,
         $PathOnContainer = "/var",
         $PathToTests,
-        $Executor 
+        $Executor,
+        [String[]]$PrerequisiteModule
     )
 
     if($Executor -eq "WIN"){
@@ -22,6 +23,12 @@ Function DockerPesterRun {
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
         winpty docker cp $InputFolder $CPString
+
+        if($PrerequisiteModule){
+            foreach($Module in $PrerequisiteModule){
+                winpty docker.exe exec -T $ContainerName pwsh -command "Install-Module $Module -Force"
+            }
+        }
         
         winpty docker.exe exec -T $ContainerName pwsh -command "Install-Module Pester -Force"
         winpty docker.exe exec -T $ContainerName pwsh -command "ipmo pester"
@@ -49,6 +56,12 @@ Function DockerPesterRun {
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
         docker cp $InputFolder $CPString
+
+        if($PrerequisiteModule){
+            foreach($Module in $PrerequisiteModule){
+                docker exec $ContainerName pwsh -command "Install-Module $Module -Force"
+            }
+        }
         
         docker exec $ContainerName pwsh -command "Install-Module Pester -Force"
         docker exec $ContainerName pwsh -command "ipmo pester"

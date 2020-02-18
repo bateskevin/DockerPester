@@ -62,6 +62,7 @@ $Param = @{
     InputFolder = "/Users/kevin/code/PSHarmonize"
     PathOnContainer = "/var"
     PathToTests = "Tests"
+    PrerequisiteModule = "PSHTML"
 }
 
 Invoke-DockerPester @Param
@@ -90,3 +91,7 @@ This will be /var if entered nothing. This is the Path used in the Container.
 Add the Path to the Tests in your Module folder here. Not the whole Path, but only the Path in your Folder.
 
 This will be set to "Tests" if nothing is passed here.
+
+  ### PrerequisiteModule 
+
+Add this Parameter to download prerequisite Module from the gallery.
