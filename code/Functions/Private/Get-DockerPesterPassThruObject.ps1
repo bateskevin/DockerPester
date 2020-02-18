@@ -4,7 +4,7 @@ Function Get-DockerPesterPassthruPbject {
         $FileName = "Output.json"
     )
 
-    $File = Join-Path $Location $FileName
+    $File = "$Location/$FileName"
 
     $PassThru = Get-Content $File | ConvertFrom-Json
 
