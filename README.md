@@ -1,11 +1,7 @@
 # DockerPester
 Run Pester Tests in containers locally and get PassThru Object back.
 
-![Docker](IMG/Docker.png)                        ![Powershell](IMG/powershell.png)
-
-## Experimental Module
-
-This is basically just to play around with, but it could get to a cool state :) 
+![Docker](IMG/Docker.png)                        ![Powershell](IMG/powershell.png) 
 
 # Azure Pipelines
 
@@ -28,8 +24,6 @@ Up until now I tested it with the following Docker Images:
 | servercore 1809   | mcr.microsoft.com/windows/servercore:1809 | docker pull mcr.microsoft.com/windows/servercore:ltsc2019 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=servercore_1809) |
 
 
-
-
  # How to use it
 
  ## Prereq
@@ -46,6 +40,12 @@ Up until now I tested it with the following Docker Images:
 
  ! Installs Chocolatey and Docker. If you already have Chocolatey installed just run the second line.
 
+ ### Windows Containers on Macbook
+
+ If you are using a macbook and want to run Windows Containers check out [windows-docker-machine](https://github.com/StefanScherer/windows-docker-machine/blob/master/) by Stefan Scherer.
+
+ Follow the Instructions in the Readme [here](https://github.com/StefanScherer/windows-docker-machine/blob/master/README.md#working-on-macos)
+
  ### Pull Powershell Docker Images
 
  You can find all the Images with Powershell on them, provided by Microsoft, here: 
@@ -61,41 +61,19 @@ Up until now I tested it with the following Docker Images:
 
   ```
 $Param = @{
-    ContainerName = "DockerPester"
-    Image = "mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8"
-    InputFolder = "/Users/kevin/code/PSHarmonize"
-    PathOnContainer = "/var"
-    PathToTests = "Tests"
-    PrerequisiteModule = "PSHTML"
+    ContainerName = "DockerPester" #Name of the Container used to Test.
+    Image = "mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8" #Image used for the Container
+    InputFolder = "/Users/kevin/code/PSHarmonize"#Module or Folder you pass with your Tests in them
+    PathOnContainer = "/var" #Path you want to copy to in your container
+    PathToTests = "Tests" #Path in 'InputFolder' where your Tests are located
+    PrerequisiteModule = "PSHTML" #Pass Modules that are prerequisites to your tests to download from gallery in container.
 }
 
 Invoke-DockerPester @Param
   ```
 
-  ## Params
+Parameters are described in Detail here: [Parameters](Docs/Parameter.md)
 
-  ### ContainerName 
+# Set DockerPester up for your Module to use locally
 
-You can choose the name of your container freely. If entered nothing it will be Called "DockerPester"
-
-  ### Image - REQUIRED
-
-Add one of the Images you pulled here.
-
-  ### InputFolder - REQUIRED
-
-Point this to a Module you want to run your Tests for.
-
-  ### PathOnContainer
-
-This will be /var if entered nothing. This is the Path used in the Container.
-
-  ### PathToTests - Partially REQUIRED
-
-Add the Path to the Tests in your Module folder here. Not the whole Path, but only the Path in your Folder.
-
-This will be set to "Tests" if nothing is passed here.
-
-  ### PrerequisiteModule 
-
-Add this Parameter to download prerequisite Module from the gallery.
+Find the Documentation to set up DockerPester for your module [here](Docs/Setup_for_your_Module.md) - NOT FINISHED
