@@ -46,6 +46,25 @@ jobs:
         condition: succeededOrFailed()
         inputs:
           testRunner: NUnit
+
+  - job: servercore
+    pool: 
+      vmImage: windows-2019
+    steps:
+      - task: PowerShell@2
+        inputs:
+          targetType: 'inline'
+          script: |
+            Install-Module DockerMsftProvider -Force
+            Install-Package Docker -ProviderName DockerMsftProvider -Force
+            (Install-WindowsFeature Containers).RestartNeeded
+            Start-Service Docker
+      - powershell: "./CI/Tests.AzureDevops.servercore.ps1"
+        displayName: "Running Tests Windows servercore"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
         
 
   - job: alpine_3_8
