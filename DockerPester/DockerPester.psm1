@@ -1,4 +1,4 @@
-#Generated at 02/16/2020 00:35:01 by Kevin Bates
+#Generated at 02/18/2020 15:15:10 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -6,36 +6,47 @@ Function DockerPesterRun {
         $InputFolder,
         $PathOnContainer = "/var",
         $PathToTests,
-        $Executor 
+        $Executor,
+        [String[]]$PrerequisiteModule
     )
 
     if($Executor -eq "WIN"){
         $Location = Get-Location
 
         if(!($PathToTests)){
-            $TestPath = "$(Join-Path $(join-path $PathOnContainer (split-path $InputFolder -Leaf)) "Tests")"
+            $TestPath = "$PathOnContainer/$(split-path $InputFolder -Leaf)/Tests"
         }else{
-            $TestPath = "$(Join-Path $(join-path $PathOnContainer (split-path $InputFolder -Leaf)) $PathToTests)"
+            $TestPath = "$PathOnContainer/$(split-path $InputFolder -Leaf)/$PathToTests"
         }
 
-        winpty docker.exe run -T --name $ContainerName $Image
+        docker run -d -t --name $ContainerName $Image
+
+        docker exec $ContainerName powershell -command "if(!(Test-Path $PathOnContainer)){mkdir $PathOnContainer}"
+
+        docker exec $ContainerName powershell -command "try{Install-PackageProvider -Name NuGet -RequiredVersion 2.8.5.201 -Force -erroraction Stop}catch{throw 'Could not install packageprovider'}"
 
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
-        winpty docker cp $InputFolder $CPString
+        docker cp $InputFolder $CPString
+
+        if($PrerequisiteModule){
+            foreach($Module in $PrerequisiteModule){
+                docker exec $ContainerName powershell -command "Install-Module $Module -Force"
+            }
+        }
         
-        winpty docker.exe exec -T $ContainerName pwsh -command "Install-Module Pester -Force"
-        winpty docker.exe exec -T $ContainerName pwsh -command "ipmo pester"
-        winpty docker.exe exec -T $ContainerName pwsh -command "If(!(Test-Path $PathOnContainer)){New-Item $PathOnContainer -Recurse}"
-        winpty docker.exe exec -T $ContainerName pwsh -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
+        docker exec $ContainerName powershell -command "Install-Module Pester -Force -SkipPublisherCheck"
+        docker exec $ContainerName powershell -command "ipmo pester"
+        docker exec $ContainerName powershell -command "If(!(Test-Path $PathOnContainer)){New-Item $PathOnContainer -Recurse}"
+        docker exec $ContainerName powershell -command "Invoke-Pester $TestPath -PassThru | Convertto-JSON | Out-File $PathOnContainer/Output.json"
         
         $CPString2 = "$($ContainerName):$($PathOnContainer)/Output.json"
         $CPString3 = (Join-Path $Location Output.json)
-        docker.exe cp $CPString2 $CPString3 
+        docker cp $CPString2 $CPString3 
         #docker exec -it $ContainerName pwsh -command "Invoke-Pester $PathToTests -PassThru -Show None"
         #docker exec -it $ContainerName pwsh -command "$res | convertto-json"
     
-        winpty docker.exe  rm --force $ContainerName
+        docker  rm --force $ContainerName
     }else{
         $Location = Get-Location
 
@@ -50,6 +61,12 @@ Function DockerPesterRun {
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
         docker cp $InputFolder $CPString
+
+        if($PrerequisiteModule){
+            foreach($Module in $PrerequisiteModule){
+                docker exec $ContainerName pwsh -command "Install-Module $Module -Force"
+            }
+        }
         
         docker exec $ContainerName pwsh -command "Install-Module Pester -Force"
         docker exec $ContainerName pwsh -command "ipmo pester"
@@ -130,12 +147,13 @@ Function Invoke-DockerPester {
         $InputFolder,
         $PathOnContainer = "/var",
         $PathToTests,
-        $Executor
+        $Executor,
+        [String[]]$PrerequisiteModule
     )
 
     $Location = Get-Location
 
-    DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer -PathToTests $PathToTests -Executor $Executor
+    DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer -PathToTests $PathToTests -Executor $Executor -PrerequisiteModule $PrerequisiteModule
 
     $PassThruObject = Get-DockerPesterPassthruPbject -Location $Location
 

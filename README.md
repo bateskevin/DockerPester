@@ -24,6 +24,9 @@ Up until now I tested it with the following Docker Images:
 | Alpine 3.8      | 7.0.0-rc.2-alpine-3.8 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=alpine_3_8) |
 | Alpine 3.10      | 7.0.0-rc.2-alpine-3.10 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.10 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=alpine_3_10) |
 | Ubunti Bionic    | 7.0.0-rc.2-arm32v7-ubuntu-bionic | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-arm32v7-ubuntu-bionic | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=ubuntu_ionic) |
+| servercore    | mcr.microsoft.com/windows/servercore:ltsc2019 | docker pull mcr.microsoft.com/windows/servercore:ltsc2019 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=servercore) |
+
+
 
 
  # How to use it
