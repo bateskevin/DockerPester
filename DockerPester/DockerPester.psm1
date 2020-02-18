@@ -1,4 +1,4 @@
-#Generated at 02/18/2020 15:15:10 by Kevin Bates
+#Generated at 02/18/2020 16:17:10 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -57,6 +57,8 @@ Function DockerPesterRun {
         }
 
         docker run -d -t --name $ContainerName $Image
+
+        docker start $ContainerName
 
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
