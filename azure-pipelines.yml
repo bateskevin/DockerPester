@@ -8,7 +8,7 @@ trigger:
 
 jobs:
 
-  - job: Test_windows2019
+  - job: BaseTests
     pool: 
       vmImage: windows-2019
     steps: 
@@ -28,7 +28,7 @@ jobs:
           testRunner: NUnit
           testResultsFiles: '**/TestsResults.xml'
 
-  - job: Test_windows2019_Images_Tests
+  - job: servercore_1809
     pool: 
       vmImage: windows-2019
     steps:
@@ -47,7 +47,7 @@ jobs:
         inputs:
           testRunner: NUnit
 
-  - job: servercore
+  - job: servercore_2019
     pool: 
       vmImage: windows-2019
     steps:
@@ -60,7 +60,7 @@ jobs:
             (Install-WindowsFeature Containers).RestartNeeded
             Start-Service Docker
       - powershell: "./CI/Tests.AzureDevops.servercore.ps1"
-        displayName: "Running Tests Windows servercore"
+        displayName: "Running Tests Windows servercore 2019"
       - task: PublishTestResults@2
         condition: succeededOrFailed()
         inputs:
