@@ -80,7 +80,7 @@ jobs:
           testRunner: NUnit
           testResultsFiles: '**/TestsResults.xml'
 
-  - job: ubuntu_ionic
+  - job: ubuntu_Bionic
     pool: 
       vmImage: ubuntu-latest
     steps: 

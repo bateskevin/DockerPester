@@ -57,6 +57,8 @@ Function DockerPesterRun {
 
         docker run -d -t --name $ContainerName $Image
 
+        docker start $ContainerName
+
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
         docker cp $InputFolder $CPString
