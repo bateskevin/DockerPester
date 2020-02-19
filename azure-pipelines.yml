@@ -73,12 +73,38 @@ jobs:
     steps: 
       - script: sudo apt-get remove docker docker-engine docker.io containerd runc
       - script: "pwsh -c ./CI/Tests.AzureDevops.alpine-3.8.ps1"
-        displayName: "Running Tests Ubuntu"
+        displayName: "Running Tests alpine 3.8"
       - task: PublishTestResults@2
         condition: succeededOrFailed()
         inputs:
           testRunner: NUnit
           testResultsFiles: '**/TestsResults.xml'
+
+  - job: alpine_3_9
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.alpine-3.9.ps1"
+        displayName: "Running Tests alpine 3.9"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: ubuntu_Bionic_arm
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.ubuntu-bionic-arm.ps1"
+        displayName: "Running Tests Ubuntu Bionic bionic arm"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'      
 
   - job: ubuntu_Bionic
     pool: 
@@ -86,12 +112,12 @@ jobs:
     steps: 
       - script: sudo apt-get remove docker docker-engine docker.io containerd runc
       - script: "pwsh -c ./CI/Tests.AzureDevops.ubuntu-bionic.ps1"
-        displayName: "Running Tests Ubuntu"
+        displayName: "Running Tests Ubuntu Bionic bionic arm"
       - task: PublishTestResults@2
         condition: succeededOrFailed()
         inputs:
           testRunner: NUnit
-          testResultsFiles: '**/TestsResults.xml'      
+          testResultsFiles: '**/TestsResults.xml'
 
   - job: alpine_3_10
     pool: 
@@ -99,7 +125,137 @@ jobs:
     steps: 
       - script: sudo apt-get remove docker docker-engine docker.io containerd runc
       - script: "pwsh -c ./CI/Tests.AzureDevops.alpine-3.10.ps1"
-        displayName: "Running Tests Ubuntu"
+        displayName: "Running Tests alpine 3.10"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: centos_7
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.centos-7.ps1"
+        displayName: "Running Tests centos 7"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: centos_8
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.centos-8.ps1"
+        displayName: "Running Tests centos 8"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: debian_buster_slim
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.debian-buster-slim.ps1"
+        displayName: "Running Tests debian buster slim"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: debian_9
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.debian-9.ps1"
+        displayName: "Running Tests debian 9"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: debian_10
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.debian-10.ps1"
+        displayName: "Running Tests debian 10"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: debian_11
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.debian-11.ps1"
+        displayName: "Running Tests debian 11"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: fedora_28
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.fedora-28.ps1"
+        displayName: "Running Tests fedora 28"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: fedora_29
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.fedora-29.ps1"
+        displayName: "Running Tests fedora 29"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: fedora_30
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.fedora-30.ps1"
+        displayName: "Running Tests fedora 30"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: opensuse_42_3
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.opensuse-42.3.ps1"
+        displayName: "Running Tests opensuse 42.3"
       - task: PublishTestResults@2
         condition: succeededOrFailed()
         inputs:

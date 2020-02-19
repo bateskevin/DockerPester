@@ -17,11 +17,24 @@ Up until now I tested it with the following Docker Images:
 
 | OS        | Tag           | Pull  | Comment     |
 | ------------- |:-------------:| -----:| -----:|
+| Windows servercore 2019   | mcr.microsoft.com/windows/servercore:ltsc2019 | docker pull mcr.microsoft.com/windows/servercore:ltsc2019 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=servercore_2019) |
+| Windows servercore 1809   | mcr.microsoft.com/windows/servercore:1809 | docker pull mcr.microsoft.com/windows/servercore:ltsc2019 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=servercore_1809) |
 | Alpine 3.8      | 7.0.0-rc.2-alpine-3.8 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=alpine_3_8) |
+| Alpine 3.9      | 7.0.0-rc.2-alpine-3.9 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.9 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=alpine_3_9) |
 | Alpine 3.10      | 7.0.0-rc.2-alpine-3.10 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.10 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=alpine_3_10) |
-| Ubunti Bionic    | 7.0.0-rc.2-arm32v7-ubuntu-bionic | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-arm32v7-ubuntu-bionic | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=ubuntu_Bionic) |
-| servercore 2019   | mcr.microsoft.com/windows/servercore:ltsc2019 | docker pull mcr.microsoft.com/windows/servercore:ltsc2019 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=servercore_2019) |
-| servercore 1809   | mcr.microsoft.com/windows/servercore:1809 | docker pull mcr.microsoft.com/windows/servercore:ltsc2019 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=servercore_1809) |
+| Ubuntu Bionic    | 7.0.0-rc.2-arm32v7-ubuntu-bionic | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-arm32v7-ubuntu-bionic | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=ubuntu_Bionic) |
+| Ubuntu Bionic    | 7.0.0-rc.2-arm32v7-ubuntu-18.04 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-arm32v7-ubuntu-18.04 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=ubuntu_Bionic_arm) |
+| Centos 7    | 7.0.0-rc.2-centos-7 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-centos-7 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=centos_7) |
+| Centos 8    | 7.0.0-rc.2-centos-8 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-centos-8 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=centos_8) |
+| debian buster slim    | 7.0.0-rc.2-debian-buster-slim | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-debian-buster-slim | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=debian_buster_slim) |
+| debian 9    | 7.0.0-rc.2-debian-9 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-debian-9 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=debian_9) |
+| debian 10    | 7.0.0-rc.2-debian-10 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-debian-10 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=debian_10) |
+| debian 11    | 7.0.0-rc.2-debian-11 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-debian-11 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=debian_11) |
+| Fedora 28   | 7.0.0-rc.2-fedora-28 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-fedora-28 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=fedora_28) |
+| Fedora 29   | 7.0.0-rc.2-fedora-29 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-fedora-29 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=fedora_29) |
+| Fedora 30   | 7.0.0-rc.2-fedora-30 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-fedora-30 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=fedora_30) |
+| OpenSuse 42.3   | 7.0.0-rc.2-opensuse-42.3 | docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-opensuse-42.3 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=opensuse_42_3) |
+
 
 
  # How to use it
