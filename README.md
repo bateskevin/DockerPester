@@ -40,7 +40,7 @@ Up until now I tested it with the following Docker Images:
 
  ! Installs Chocolatey and Docker. If you already have Chocolatey installed just run the second line.
 
-   ## Blog Post on how to use it:
+   ## Blog Post on how to set up and use:
 
    [DockerPester on BatesBase](https://bateskevin.github.io/batesbase/Powershell/2020/02/19/DockerPester.md/)
  
