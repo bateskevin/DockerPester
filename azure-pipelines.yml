@@ -119,6 +119,32 @@ jobs:
           testRunner: NUnit
           testResultsFiles: '**/TestsResults.xml'
 
+  - job: ubuntu_16_04
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.ubuntu-16.04.ps1"
+        displayName: "Running Tests Ubuntu 16.04"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
+  - job: ubuntu_18_04
+    pool: 
+      vmImage: ubuntu-latest
+    steps: 
+      - script: sudo apt-get remove docker docker-engine docker.io containerd runc
+      - script: "pwsh -c ./CI/Tests.AzureDevops.ubuntu-18.04.ps1"
+        displayName: "Running Tests Ubuntu 18.04"
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: NUnit
+          testResultsFiles: '**/TestsResults.xml'
+
   - job: alpine_3_10
     pool: 
       vmImage: ubuntu-latest
