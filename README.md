@@ -7,15 +7,15 @@ Run Pester Tests in containers locally and get PassThru Object back.
 
 ## Module Functionality
 
-| OS        | Tag           |
+| Base functionality        | Pipeline           |
 | ------------- |:-------------:|
-| Base Functionalty     | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=BaseTests) |
+| DockerPester     | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=BaseTests) |
 
 # Tested Docker Images
 
 Up until now I tested it with the following Docker Images:
 
-| OS      | Pull  | Comment     |
+| OS      | Pull  | Pipeline     |
 | ------------- |:-------------:|  -----:|
 | Windows servercore 2019   | docker pull mcr.microsoft.com/windows/servercore:ltsc2019 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=servercore_2019) |
 | Windows servercore 1809   | docker pull mcr.microsoft.com/windows/servercore:ltsc2019 | ![Build Status](https://dev.azure.com/KevinBates0726/DockerPester/_apis/build/status/bateskevin.DockerPester?branchName=master&jobName=servercore_1809) |
