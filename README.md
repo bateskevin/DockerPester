@@ -40,24 +40,12 @@ Up until now I tested it with the following Docker Images:
 
  ! Installs Chocolatey and Docker. If you already have Chocolatey installed just run the second line.
 
- ### Windows Containers on Macbook
+   ## Blog Post on how to use it:
 
- If you are using a macbook and want to run Windows Containers check out [windows-docker-machine](https://github.com/StefanScherer/windows-docker-machine/blob/master/) by Stefan Scherer.
-
- Follow the Instructions in the Readme [here](https://github.com/StefanScherer/windows-docker-machine/blob/master/README.md#working-on-macos)
-
- ### Pull Powershell Docker Images
-
- You can find all the Images with Powershell on them, provided by Microsoft, here: 
-  [Powershell Docker Images](https://hub.docker.com/_/microsoft-powershell)
-
-  Pull these images like this for example:
-
-  ```
-  docker pull mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8
-  ```
-
-  ## Run a Test
+   [DockerPester on BatesBase](https://bateskevin.github.io/batesbase/Powershell/2020/02/19/DockerPester.md/)
+ 
+   
+   ## Run a Test - TLDR
 
   ```
 $Param = @{
