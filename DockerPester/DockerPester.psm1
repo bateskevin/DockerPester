@@ -1,4 +1,4 @@
-#Generated at 02/20/2020 13:56:45 by Kevin Bates
+#Generated at 02/20/2020 14:15:26 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -405,12 +405,19 @@ Function Invoke-DockerPester {
 
         foreach($ParamSet in $ParamSets){
 
+            Write-DockerPesterHost -Message "Starting run for Image $($ParamSet.Image)"
+            Write-Host ""
+            Write-Host ""
+
             if(!($Context)){
                 $Context = "default"
             }else{
+
+                $Context = $ParamSet.Context
+
                 $Res = get-DockerPesterContext
-                $Executor = $Res.executor
-                $Context = $Res.Context
+                $Executor = ($Res | ?{$_.Context -eq $Context}).Executor
+                
             }
             
             $Hash = @{
@@ -455,9 +462,12 @@ Function Invoke-DockerPester {
             $Object | ConvertTo-Json -Depth 7 | Out-File -FilePath "$HOME/DockerPester/$($Project)_Tests/$($Date)_$($ImageName).json"
         }
 
-        Write-Host "Find your Test Results at '$HOME/DockerPester/$($Project)_Tests/'"
+        Write-DockerPesterHost -Message "Find your Test Results at '$HOME/DockerPester/$($Project)_Tests/'"
 
     }else{
+
+        Write-DockerPesterHost -Message "Starting run for Image $($Image)"
+
         $Location = Get-Location
 
         DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer -PathToTests $PathToTests -Executor $Executor -PrerequisiteModule $PrerequisiteModule -Context $Context
