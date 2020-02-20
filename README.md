@@ -41,6 +41,14 @@ Up until now I tested it with the following Docker Images:
 
  # How to use it
 
+ ## Install the Module
+
+ Use the following code to install the Module:
+
+ ´´´
+ Find-Module DockerPester -AllowPrerelease | Install-Module -Force
+ ´´´
+ 
  ## Prereq
 
  ### Install Docker
