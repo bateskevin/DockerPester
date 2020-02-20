@@ -1,4 +1,4 @@
-#Generated at 02/20/2020 14:26:21 by Kevin Bates
+#Generated at 02/20/2020 15:17:19 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -394,7 +394,7 @@ Function Invoke-DockerPester {
         $Executor,
         [String[]]$PrerequisiteModule,
         $Project,
-        $Context
+        $Context = "default"
     )
  
     if($Project){

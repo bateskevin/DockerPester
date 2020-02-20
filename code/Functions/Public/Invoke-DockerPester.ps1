@@ -8,7 +8,7 @@ Function Invoke-DockerPester {
         $Executor,
         [String[]]$PrerequisiteModule,
         $Project,
-        $Context
+        $Context = "default"
     )
  
     if($Project){
