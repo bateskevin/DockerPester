@@ -18,7 +18,7 @@ ModuleVersion = '0.1.0'
 # CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
-GUID = '7da3fed7-e552-4802-90a9-b3f52e418ee1'
+GUID = 'f2b4bb05-f099-4745-b73a-96dbddcd07c2'
 
 # Author of this module
 Author = 'Kevin Bates'
@@ -30,7 +30,7 @@ CompanyName = 'BatesBase'
 Copyright = 'Kevin Bates'
 
 # Description of the functionality provided by this module
-Description = 'Powershell Music framework'
+Description = 'Execute Pester Tests in Docker Containers locally.'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''
