@@ -69,9 +69,10 @@ Description = 'Execute Pester Tests in Docker Containers locally.'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Add-DockerPesterProject', 'Get-DockerImages', 
-               'Get-DockerPesterProject', 'Get-LatestDockerPesterResults', 
-               'Invoke-DockerPester', 'Remove-DockerPesterProject'
+FunctionsToExport = 'Add-DockerPesterProject', 'Get-DockerContext', 'Get-DockerImages', 
+               'Get-DockerPesterContext', 'Get-DockerPesterProject', 
+               'Get-LatestDockerPesterResults', 'Invoke-DockerPester', 
+               'Remove-DockerPesterProject', 'Set-DockerPesterContext'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()

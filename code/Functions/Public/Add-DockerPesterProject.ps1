@@ -8,7 +8,8 @@ Function Add-DockerPesterProject {
         $PathOnContainer,
         $PathToTests,
         $Executor,
-        [String[]]$PrerequisiteModule
+        [String[]]$PrerequisiteModule,
+        $Context
     )
 
     $InputFolder = (Get-Item $InputFolder).FullName
@@ -45,6 +46,7 @@ Function Add-DockerPesterProject {
         PathToTests = $PathToTests
         Executor = $Executor
         PrerequisiteModule = $PrerequisiteModule
+        Context = $Context
 
     }
 

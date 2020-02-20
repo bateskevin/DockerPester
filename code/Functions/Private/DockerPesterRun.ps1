@@ -6,8 +6,19 @@ Function DockerPesterRun {
         $PathOnContainer = "/var",
         $PathToTests,
         $Executor,
-        [String[]]$PrerequisiteModule
+        [String[]]$PrerequisiteModule,
+        $Context
     )
+
+    if(!($Context)){
+        $Context = "default"
+    }else{
+        $Res = get-DockerPesterContext
+        $Executor = $Res.executor
+    }
+
+    Write-DockerPesterHost -Message "Context is set to $Context"
+    docker context use $Context
 
     if($Executor -eq "WIN"){
 

@@ -1,4 +1,4 @@
-#Generated at 02/20/2020 09:02:06 by Kevin Bates
+#Generated at 02/20/2020 11:41:04 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -7,8 +7,19 @@ Function DockerPesterRun {
         $PathOnContainer = "/var",
         $PathToTests,
         $Executor,
-        [String[]]$PrerequisiteModule
+        [String[]]$PrerequisiteModule,
+        $Context
     )
+
+    if(!($Context)){
+        $Context = "default"
+    }else{
+        $Res = get-DockerPesterContext
+        $Executor = $Res.executor
+    }
+
+    Write-DockerPesterHost -Message "Context is set to $Context"
+    docker context use $Context
 
     if($Executor -eq "WIN"){
 
@@ -175,7 +186,8 @@ Function Add-DockerPesterProject {
         $PathOnContainer,
         $PathToTests,
         $Executor,
-        [String[]]$PrerequisiteModule
+        [String[]]$PrerequisiteModule,
+        $Context
     )
 
     $InputFolder = (Get-Item $InputFolder).FullName
@@ -212,6 +224,7 @@ Function Add-DockerPesterProject {
         PathToTests = $PathToTests
         Executor = $Executor
         PrerequisiteModule = $PrerequisiteModule
+        Context = $Context
 
     }
 
@@ -238,6 +251,47 @@ Function Add-DockerPesterProject {
     $arr | ConvertTo-Json -Depth 7 | Out-File -FilePath $ConfigFileName
 
 
+}
+Function Get-Dockercontext {
+    $Images = docker context ls
+
+    $count = 0
+
+    Foreach($Line in $Images){
+        if($count -eq 0){
+            $Arr = @()
+        }else{
+
+            $SplitLine = $Line.Split(" ")
+
+            $PropertyCount = 0
+            Foreach($Object in $SplitLine){
+                if($Object.Length -gt 2){
+                    Switch ($PropertyCount) {
+                        0 {$Repository = $Object;$PropertyCount++}
+                        1 {$Tag = $Object;$PropertyCount++}
+                        2 {$ImageID = $Object;$PropertyCount++}
+                        3 {$Created = $Object;$PropertyCount++}
+                        4 {$Size = $Object;$PropertyCount++}
+                    }                
+                }
+            }
+
+            $Obj = [PSCustomObject]@{
+                Repository = $Repository
+                Tag = $Tag
+                ImageID = $ImageID
+                Created = $Created
+                Size = $Size
+            }
+
+            $Arr += $Obj
+
+        }
+
+        $count++
+    }
+    Return $Arr
 }
 Function Get-DockerImages {
     $Images = docker images
@@ -279,6 +333,13 @@ Function Get-DockerImages {
         $count++
     }
     Return $Arr
+}
+Function Get-DockerPesterContext {
+
+    $Context = Get-Content "$HOME/DockerPester/Context.json" | ConvertFrom-Json -Depth 7
+
+    return $Context
+
 }
 Function Get-DockerPesterProject {
     param(
@@ -339,9 +400,10 @@ Function Invoke-DockerPester {
         $PathToTests,
         $Executor,
         [String[]]$PrerequisiteModule,
-        $Project
+        $Project,
+        $Context
     )
-
+ 
     if($Project){
 
         $Location = Get-Location
@@ -358,6 +420,7 @@ Function Invoke-DockerPester {
                 PathToTests = $ParamSet.PathToTests
                 Executor = $ParamSet.Executor
                 PrerequisiteModule = $ParamSet.PrerequisiteModule
+                Context = $Context
             }
             
             DockerPesterRun @Hash
@@ -396,7 +459,7 @@ Function Invoke-DockerPester {
     }else{
         $Location = Get-Location
 
-        DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer -PathToTests $PathToTests -Executor $Executor -PrerequisiteModule $PrerequisiteModule
+        DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer -PathToTests $PathToTests -Executor $Executor -PrerequisiteModule $PrerequisiteModule -Context $Context
 
         $PassThruObject = Get-DockerPesterPassthruPbject -Location $Location
 
@@ -415,5 +478,34 @@ Function Remove-DockerPesterProject {
     if(Test-Path "$Home/DockerPester/$($Name)_Tests"){
         Remove-Item "$Home/DockerPester/$($Name)_Tests"
     }
+
+}
+Function Set-DockerPesterContext {
+    param(
+        $Context,
+        $Executor
+    )
+
+    $ContextJSON = "$HOME/DockerPester/Context.json"
+
+    [PSCustomObject]$Object = @{
+        Context = $Context
+        Executor = $Executor
+
+    }
+
+    $CurrentJSON = Get-Content $ContextJSON | ConvertFrom-Json -Depth 7
+
+    $arr = @()
+
+    foreach($instance in $CurrentJSON){
+        $arr += $instance
+    }
+
+    $arr += $Object
+
+    $arr | ConvertTo-Json -Depth 7 | Out-File -FilePath $ContextJSON
+
+    Write-DockerPesterHost -Message "Set Context $($Context):$($executor)"
 
 }

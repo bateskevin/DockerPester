@@ -7,9 +7,10 @@ Function Invoke-DockerPester {
         $PathToTests,
         $Executor,
         [String[]]$PrerequisiteModule,
-        $Project
+        $Project,
+        $Context
     )
-
+ 
     if($Project){
 
         $Location = Get-Location
@@ -26,6 +27,7 @@ Function Invoke-DockerPester {
                 PathToTests = $ParamSet.PathToTests
                 Executor = $ParamSet.Executor
                 PrerequisiteModule = $ParamSet.PrerequisiteModule
+                Context = $Context
             }
             
             DockerPesterRun @Hash
@@ -64,7 +66,7 @@ Function Invoke-DockerPester {
     }else{
         $Location = Get-Location
 
-        DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer -PathToTests $PathToTests -Executor $Executor -PrerequisiteModule $PrerequisiteModule
+        DockerPesterRun -ContainerName $ContainerName -Image $Image -InputFolder $InputFolder -PathOnContainer $PathOnContainer -PathToTests $PathToTests -Executor $Executor -PrerequisiteModule $PrerequisiteModule -Context $Context
 
         $PassThruObject = Get-DockerPesterPassthruPbject -Location $Location
 
