@@ -76,7 +76,7 @@ Function Invoke-DockerPester {
             $Object | ConvertTo-Json -Depth 7 | Out-File -FilePath "$HOME/DockerPester/$($Project)_Tests/$($Date)_$($ImageName).json"
         }
 
-        Write-DockerPesterHost -Message "Find your Test Results at '$HOME/DockerPester/$($Project)_Tests/'"
+        Write-DockerPesterHost -Message "Find your Test Results at '$HOME/DockerPester/$($Project)_Tests/' or use Get-LatestDockerPesterResults -Project $Project to retrieve the result as an object."
 
     }else{
 
