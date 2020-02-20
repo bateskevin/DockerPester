@@ -18,6 +18,14 @@ Function Invoke-DockerPester {
         $ParamSets = Get-DockerPesterProject -Name $Project 
 
         foreach($ParamSet in $ParamSets){
+
+            if(!($Context)){
+                $Context = "default"
+            }else{
+                $Res = get-DockerPesterContext
+                $Executor = $Res.executor
+                $Context = $Res.Context
+            }
             
             $Hash = @{
                 ContainerName = $ParamSet.ContainerName

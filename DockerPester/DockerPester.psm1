@@ -1,4 +1,4 @@
-#Generated at 02/20/2020 12:18:56 by Kevin Bates
+#Generated at 02/20/2020 13:56:45 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -10,13 +10,6 @@ Function DockerPesterRun {
         [String[]]$PrerequisiteModule,
         $Context
     )
-
-    if(!($Context)){
-        $Context = "default"
-    }else{
-        $Res = get-DockerPesterContext
-        $Executor = $Res.executor
-    }
 
     Write-DockerPesterHost -Message "Context is set to $Context"
     docker context use $Context
@@ -411,6 +404,14 @@ Function Invoke-DockerPester {
         $ParamSets = Get-DockerPesterProject -Name $Project 
 
         foreach($ParamSet in $ParamSets){
+
+            if(!($Context)){
+                $Context = "default"
+            }else{
+                $Res = get-DockerPesterContext
+                $Executor = $Res.executor
+                $Context = $Res.Context
+            }
             
             $Hash = @{
                 ContainerName = $ParamSet.ContainerName
