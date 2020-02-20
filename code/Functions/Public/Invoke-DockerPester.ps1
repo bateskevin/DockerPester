@@ -27,7 +27,7 @@ Function Invoke-DockerPester {
                 PathToTests = $ParamSet.PathToTests
                 Executor = $ParamSet.Executor
                 PrerequisiteModule = $ParamSet.PrerequisiteModule
-                Context = $Context
+                Context = $ParamSet.Context
             }
             
             DockerPesterRun @Hash

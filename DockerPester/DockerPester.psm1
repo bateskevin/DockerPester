@@ -1,4 +1,4 @@
-#Generated at 02/20/2020 11:41:04 by Kevin Bates
+#Generated at 02/20/2020 12:18:56 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -420,7 +420,7 @@ Function Invoke-DockerPester {
                 PathToTests = $ParamSet.PathToTests
                 Executor = $ParamSet.Executor
                 PrerequisiteModule = $ParamSet.PrerequisiteModule
-                Context = $Context
+                Context = $ParamSet.Context
             }
             
             DockerPesterRun @Hash
