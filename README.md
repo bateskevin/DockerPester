@@ -3,6 +3,14 @@ Run Pester Tests in containers locally and get PassThru Object back.
 
 ![Docker](IMG/Docker.png)                        ![Powershell](IMG/powershell.png) 
 
+## Install the Module
+
+ Use the following code to install the Module:
+
+```
+Find-Module DockerPester -AllowPrerelease | Install-Module -Force
+```
+
 # Azure Pipelines
 
 ## Module Functionality
@@ -41,14 +49,6 @@ Up until now I tested it with the following Docker Images:
 
  # How to use it
 
- ## Install the Module
-
- Use the following code to install the Module:
-
- ´´´
- Find-Module DockerPester -AllowPrerelease | Install-Module -Force
- ´´´
- 
  ## Prereq
 
  ### Install Docker
