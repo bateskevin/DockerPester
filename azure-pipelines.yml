@@ -6,7 +6,7 @@
 trigger:
 - master
 
-jobs:
+jobs: 
 
   - job: BaseTests
     pool: 
@@ -35,7 +35,7 @@ jobs:
       - task: PowerShell@2
         inputs:
           targetType: 'inline'
-          script: |
+          script: | 
             Install-Module DockerMsftProvider -Force
             Install-Package Docker -ProviderName DockerMsftProvider -Force
             (Install-WindowsFeature Containers).RestartNeeded
