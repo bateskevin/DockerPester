@@ -30,7 +30,7 @@ jobs:
 
   - job: servercore_1809_7_rc3
     pool: 
-      vmImage: windows-2016
+      vmImage: vs2017-win2016
     steps:
       - task: PowerShell@2
         inputs:
