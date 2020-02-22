@@ -12,9 +12,7 @@ Function DockerPesterRun {
 
     Write-DockerPesterHost -Message "Context is set to $Context"
     
-    if(!($PSVersionTable.PSVersion.Major -lt 6)){
-        docker context use $Context
-    }
+    docker context use $Context
 
     if($Executor -eq "WIN"){
 

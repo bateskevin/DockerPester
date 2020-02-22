@@ -1,4 +1,4 @@
-#Generated at 02/22/2020 13:46:28 by Kevin Bates
+#Generated at 02/22/2020 14:08:36 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -13,9 +13,7 @@ Function DockerPesterRun {
 
     Write-DockerPesterHost -Message "Context is set to $Context"
     
-    if(!($PSVersionTable.PSVersion.Major -lt 6)){
-        docker context use $Context
-    }
+    docker context use $Context
 
     if($Executor -eq "WIN"){
 
@@ -478,6 +476,10 @@ Function Invoke-DockerPester {
         Write-DockerPesterHost -Message "Find your Test Results at '$HOME/DockerPester/$($Project)_Tests/' or use 'Get-LatestDockerPesterResults -Project $Project' to retrieve the result as an object."
 
     }else{
+
+        if(!($Context)){
+            $Context = "default"
+        }
 
         Write-DockerPesterHost -Message "Starting run for Image $($Image)"
 

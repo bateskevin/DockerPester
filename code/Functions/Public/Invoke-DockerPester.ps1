@@ -90,6 +90,10 @@ Function Invoke-DockerPester {
 
     }else{
 
+        if(!($Context)){
+            $Context = "default"
+        }
+
         Write-DockerPesterHost -Message "Starting run for Image $($Image)"
 
         $Location = Get-Location
