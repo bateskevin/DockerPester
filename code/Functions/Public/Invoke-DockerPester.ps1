@@ -23,8 +23,19 @@ Function Invoke-DockerPester {
             Write-Host ""
             Write-Host ""
 
-            if(!($Context)){
+            if(!($ParamSet.Context)){
                 $Context = "default"
+
+                $Hash = @{
+                    ContainerName = $ParamSet.ContainerName
+                    Image = $ParamSet.Image
+                    InputFolder = $ParamSet.InputFolder
+                    PathOnContainer = $ParamSet.PathOnContainer
+                    PathToTests = $ParamSet.PathToTests
+                    Executor = $ParamSet.Executor
+                    PrerequisiteModule = $ParamSet.PrerequisiteModule
+                    Context = $Context
+                }
             }else{
 
                 $Context = $ParamSet.Context
@@ -32,17 +43,16 @@ Function Invoke-DockerPester {
                 $Res = get-DockerPesterContext
                 $Executor = ($Res | ?{$_.Context -eq $Context}).Executor
                 
-            }
-            
-            $Hash = @{
-                ContainerName = $ParamSet.ContainerName
-                Image = $ParamSet.Image
-                InputFolder = $ParamSet.InputFolder
-                PathOnContainer = $ParamSet.PathOnContainer
-                PathToTests = $ParamSet.PathToTests
-                Executor = $ParamSet.Executor
-                PrerequisiteModule = $ParamSet.PrerequisiteModule
-                Context = $ParamSet.Context
+                $Hash = @{
+                    ContainerName = $ParamSet.ContainerName
+                    Image = $ParamSet.Image
+                    InputFolder = $ParamSet.InputFolder
+                    PathOnContainer = $ParamSet.PathOnContainer
+                    PathToTests = $ParamSet.PathToTests
+                    Executor = $Executor
+                    PrerequisiteModule = $ParamSet.PrerequisiteModule
+                    Context = $Context
+                }
             }
             
             DockerPesterRun @Hash
