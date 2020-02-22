@@ -1,4 +1,4 @@
-#Generated at 02/22/2020 14:08:36 by Kevin Bates
+#Generated at 02/22/2020 15:03:45 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -30,6 +30,14 @@ Function DockerPesterRun {
         }
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Starting Container $ContainerName with image $Image"
+
+        $Repository = $Image.Split(":")[0]
+        $Tag = $Image.Split(":")[1]
+
+        if(!((Get-DockerImages).tag.contains("$Tag") -and (Get-DockerImages).Repository.contains("$Repository"))){
+            Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Pulling image $Image because it is not available locally."
+            docker pull $Image
+        }
 
         docker run -d -t --name $ContainerName $Image
 

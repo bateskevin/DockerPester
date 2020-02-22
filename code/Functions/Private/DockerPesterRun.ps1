@@ -30,6 +30,14 @@ Function DockerPesterRun {
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Starting Container $ContainerName with image $Image"
 
+        $Repository = $Image.Split(":")[0]
+        $Tag = $Image.Split(":")[1]
+
+        if(!((Get-DockerImages).tag.contains("$Tag") -and (Get-DockerImages).Repository.contains("$Repository"))){
+            Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Pulling image $Image because it is not available locally."
+            docker pull $Image
+        }
+
         docker run -d -t --name $ContainerName $Image
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Checking if $PathOnContainer exists on Container $ContainerName"
