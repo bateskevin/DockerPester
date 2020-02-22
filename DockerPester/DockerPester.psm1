@@ -1,4 +1,4 @@
-#Generated at 02/22/2020 13:29:08 by Kevin Bates
+#Generated at 02/22/2020 13:37:47 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -30,6 +30,7 @@ Function DockerPesterRun {
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Starting Container $ContainerName with image $Image"
 
+        docker pull $Image
         docker run -d -t --name $ContainerName $Image
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Checking if $PathOnContainer exists on Container $ContainerName"

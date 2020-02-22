@@ -29,6 +29,7 @@ Function DockerPesterRun {
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Starting Container $ContainerName with image $Image"
 
+        docker pull $Image
         docker run -d -t --name $ContainerName $Image
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Checking if $PathOnContainer exists on Container $ContainerName"
