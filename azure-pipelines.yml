@@ -28,7 +28,7 @@ jobs:
           testRunner: NUnit
           testResultsFiles: '**/TestsResults.xml'
 
-  - job: servercore_1809
+  - job: servercore_1809_7_rc3
     pool: 
       vmImage: windows-2019
     steps:
