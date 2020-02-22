@@ -28,8 +28,6 @@ Function DockerPesterRun {
             $TestPath = "$PathOnContainer/$(split-path $InputFolder -Leaf)/$PathToTests"
         }
 
-        Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Starting Container $ContainerName with image $Image"
-
         $Repository = $Image.Split(":")[0]
         $Tag = $Image.Split(":")[1]
 
@@ -38,7 +36,9 @@ Function DockerPesterRun {
             docker pull $Image
         }
 
-        docker run -d -t --name $ContainerName $Image
+        Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Starting Container $ContainerName with image $Image"
+
+        docker run -d --name $ContainerName $Image
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Checking if $PathOnContainer exists on Container $ContainerName"
 
