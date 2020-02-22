@@ -11,7 +11,10 @@ Function DockerPesterRun {
     )
 
     Write-DockerPesterHost -Message "Context is set to $Context"
-    docker context use $Context
+    
+    if($PSVersionTable.PSVersion.Major -lt 6){
+        docker context use $Context
+    }
 
     if($Executor -eq "WIN"){
 
@@ -29,7 +32,6 @@ Function DockerPesterRun {
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Starting Container $ContainerName with image $Image"
 
-        docker pull $Image
         docker run -d -t --name $ContainerName $Image
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Checking if $PathOnContainer exists on Container $ContainerName"
