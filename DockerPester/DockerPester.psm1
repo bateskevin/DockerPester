@@ -1,4 +1,4 @@
-#Generated at 02/22/2020 13:42:30 by Kevin Bates
+#Generated at 02/22/2020 13:46:28 by Kevin Bates
 Function DockerPesterRun {
     param(
         $ContainerName = "DockerPester",
@@ -13,7 +13,7 @@ Function DockerPesterRun {
 
     Write-DockerPesterHost -Message "Context is set to $Context"
     
-    if($PSVersionTable.PSVersion.Major -lt 6){
+    if(!($PSVersionTable.PSVersion.Major -lt 6)){
         docker context use $Context
     }
 
