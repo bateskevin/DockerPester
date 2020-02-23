@@ -89,4 +89,12 @@ Parameters are described in Detail here: [Parameters](Docs/Parameter.md)
 
 Find the Documentation to set up DockerPester for your module [here](Docs/Setup_for_your_Module.md) - NOT FINISHED
 
+To check out how to set up DockerPester for a Project check out [This BlogPost](https://bateskevin.github.io/batesbase/Powershell/2020/02/19/Set-up-DockerPester-for-your-Project.md.md/).
+
+This is how you would add a job for your project:
+
 ![AddProject](IMG/AddDockerPesterProject.gif)
+
+And this is how you would run DockerPester against your Project:
+
+![run](https://media.giphy.com/media/igIq9155M6eSmG0UWC/giphy.gif)
