@@ -88,3 +88,5 @@ Parameters are described in Detail here: [Parameters](Docs/Parameter.md)
 # Set DockerPester up for your Module to use locally
 
 Find the Documentation to set up DockerPester for your module [here](Docs/Setup_for_your_Module.md) - NOT FINISHED
+
+![AddProject](IMG/AddDockerPesterProject.gif)
