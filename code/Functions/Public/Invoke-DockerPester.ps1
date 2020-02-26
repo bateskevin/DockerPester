@@ -41,7 +41,11 @@ Function Invoke-DockerPester {
                 $Context = $ParamSet.Context
 
                 $Res = get-DockerPesterContext
-                $Executor = ($Res | ?{$_.Context -eq $Context}).Executor
+                if($PSVersionTable.PSVersion.Major -gt 5 -and $IsMacOS -or $IsLinux){
+                    $Executor = ($Res | ?{$_.Context -eq $Context}).Executor
+                }else{
+                    $Executor = $ParamSet.Executor
+                }
                 
                 $Hash = @{
                     ContainerName = $ParamSet.ContainerName

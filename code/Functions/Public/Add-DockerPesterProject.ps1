@@ -60,7 +60,12 @@ Function Add-DockerPesterProject {
         $null = New-Item $ConfigFileName -ItemType File
     }
     
-    $CurrentJSON = Get-Content $ConfigFileName | ConvertFrom-Json -Depth 7
+    if($PSVersionTable.PSVersion -gt 5){
+        $CurrentJSON = Get-Content $ConfigFileName | ConvertFrom-Json -Depth 7
+    }else{
+        $CurrentJSON = Get-Content $ConfigFileName | ConvertFrom-Json
+    }
+    
 
     $arr = @()
 
@@ -70,7 +75,10 @@ Function Add-DockerPesterProject {
 
     $arr += $ConfigObj
 
-    $arr | ConvertTo-Json -Depth 7 | Out-File -FilePath $ConfigFileName
-
+    if($PSVersionTable.PSVersion -gt 5){
+        $arr | ConvertTo-Json -Depth 7 | Out-File -FilePath $ConfigFileName
+    }else{
+        $arr | ConvertTo-Json | Out-File -FilePath $ConfigFileName
+    }
 
 }

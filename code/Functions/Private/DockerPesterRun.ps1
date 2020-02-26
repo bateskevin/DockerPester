@@ -10,10 +10,22 @@ Function DockerPesterRun {
         $Context
     )
 
-    Write-DockerPesterHost -Message "Context is set to $Context"
     
-    docker context use $Context
-
+    if($PSVersionTable.PSVersion.Major -gt 5 -and $IsMacOS -or $IsLinux){
+        Write-DockerPesterHost -Message "Context is set to $Context"
+        docker context use $Context
+    }else{
+        if($Executor -eq "WIN"){
+            Write-DockerPesterHost -Message "Daemon switching to Windows Containers. This takes a few seconds..."
+            & $Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchWindowsEngine
+            #Start-Sleep -Seconds 15
+        }elseif($Executor -eq "LNX"){
+            Write-DockerPesterHost -Message "Daemon switching to Linux Containers. This takes a few seconds..."
+            & $Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchLinuxEngine
+            #Start-Sleep -Seconds 15
+        }
+    }
+    
     if($Executor -eq "WIN"){
 
         Write-DockerPesterHost -Message "Executor is set to 'WIN'"
@@ -31,7 +43,7 @@ Function DockerPesterRun {
         $Repository = $Image.Split(":")[0]
         $Tag = $Image.Split(":")[1]
 
-        if(!((Get-DockerImages).tag.contains("$Tag") -and (Get-DockerImages).Repository.contains("$Repository"))){
+        if(!((Get-DockerImages).tag.contains("$Tag") -and (Get-DockerImages -erroraction SilentlyContinue).Repository.contains("$Repository"))){
             Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Pulling image $Image because it is not available locally."
             docker pull $Image
         }
@@ -51,9 +63,19 @@ Function DockerPesterRun {
 
         $CPString = "$($ContainerName):$($PathOnContainer)"
 
-        Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Copy Sources $InputFolder to $PathOnContainer on Container $ContainerName"
+        if($PSVersionTable.PSVersion.Major -lt 6 -and !($IsMacOS) -or !($IsLinux)){
 
-        docker cp $InputFolder $CPString
+            Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Copy Sources $InputFolder to $PathOnContainer on Container $ContainerName"
+            docker stop $ContainerName
+            docker cp $InputFolder $CPString
+            docker start $ContainerName
+        }else{
+            Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Copy Sources $InputFolder to $PathOnContainer on Container $ContainerName"
+
+            docker cp $InputFolder $CPString
+        }
+
+        
 
         Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Checking for Prerequisite Modules"
         docker exec $ContainerName powershell -command "$ProgressPreference = SilentlyContinue"
@@ -80,7 +102,19 @@ Function DockerPesterRun {
         
         $CPString2 = "$($ContainerName):$($PathOnContainer)/Output.json"
         $CPString3 = "$($Location)/Output.json"
-        docker cp $CPString2 $CPString3 
+
+        if($PSVersionTable.PSVersion.Major -lt 6 -and !($IsMacOS) -or !($IsLinux)){
+
+            Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Copy Sources $InputFolder to $PathOnContainer on Container $ContainerName"
+            docker stop $ContainerName
+            docker cp $CPString2 $CPString3
+            docker start $ContainerName
+        }else{
+            Write-DockerPesterHost -ContainerName $ContainerName -Image $Image -Message "Copy Sources $InputFolder to $PathOnContainer on Container $ContainerName"
+
+            docker cp $CPString2 $CPString3
+        }
+
         #docker exec -it $ContainerName pwsh -command "Invoke-Pester $PathToTests -PassThru -Show None"
         #docker exec -it $ContainerName pwsh -command "$res | convertto-json"
     
