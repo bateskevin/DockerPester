@@ -14,7 +14,7 @@ Function DockerPesterRun {
     if($PSVersionTable.PSVersion.Major -gt 5 -and $IsMacOS -or $IsLinux){
         Write-DockerPesterHost -Message "Context is set to $Context"
         docker context use $Context
-    }else{
+    }elseif(Test-Path "$Env:ProgramFiles\Docker\Docker\DockerCli.exe"){
         if($Executor -eq "WIN"){
             Write-DockerPesterHost -Message "Daemon switching to Windows Containers. This takes a few seconds..."
             & $Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchWindowsEngine
